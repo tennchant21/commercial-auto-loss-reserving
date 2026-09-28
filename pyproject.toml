@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reserving"
+version = "0.1.0"
+description = "Loss reserving on CAS Schedule P Commercial Auto data using chainladder."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = ["chainladder", "matplotlib", "numpy", "pandas"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "D", "ANN", "N", "SIM", "PT", "NPY", "PD", "RUF"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+filterwarnings = [
+    "error",
+    # chainladder 0.10.1 adds a bare int to a datetime64 array (core/base.py);
+    # numpy 2.5 deprecates this. Upstream issue, harmless for annual grains.
+    "ignore:The 'generic' unit for NumPy timedelta is deprecated:DeprecationWarning:chainladder",
+]
