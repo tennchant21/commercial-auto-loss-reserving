@@ -92,7 +92,7 @@ relative tolerance of 1e-10.
 
 ## Usage
 
-Requires Python 3.12.
+Requires Python 3.12 (see `requires-python` in `pyproject.toml`).
 
 ```powershell
 python -m venv .venv
